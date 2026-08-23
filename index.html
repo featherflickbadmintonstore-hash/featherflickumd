@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feather Flick Badminton Store</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --scout-green: #00A550; /* Girl Scout Green */
+            --dark-bg: #000000;
+            --white: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        h1, h2, h3, h4 {
+            margin: 0 0 15px 0;
+            color: var(--white);
+        }
+
+        .highlight-text {
+            color: var(--scout-green);
+        }
+
+        /* Header */
+        header {
+            background-color: var(--dark-bg);
+            padding: 15px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--scout-green);
+        }
+
+        .logo-area {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            color: var(--white);
+        }
+
+        .logo-title img {
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .location-text {
+            font-size: 0.8rem;
+            color: var(--white);
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            position: relative;
+            color: var(--white);
+        }
+
+        nav a:hover {
+            color: var(--scout-green);
+        }
+        
+        /* Tooltip / Popup styling for Nav */
+        nav a::after {
+            content: attr(data-hover);
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--scout-green);
+            color: var(--white);
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            border-radius: 4px;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+
+        nav a:hover::after {
+            opacity: 1;
+            visibility: visible;
+            bottom: -25px;
+        }
+
+        .header-icons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .icon-btn {
+            background-color: var(--scout-green);
+            color: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            transition: 0.3s;
+            border: 2px solid var(--scout-green);
+        }
+
+        .icon-btn:hover {
+            background-color: var(--white);
+            color: var(--scout-green);
+            transform: scale(1.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: stretch;
+            min-height: 85vh;
+            padding: 0 40px;
+            gap: 40px;
+        }
+
+        .hero-left {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            position: relative;
+        }
+
+        .hero-left img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+            border: 2px solid var(--scout-green);
+            border-bottom: none;
+        }
+
+        .hero-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero-right h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .hero-right p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: var(--white);
+            max-width: 80%;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            font-weight: 600;
+            border-radius: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            cursor: pointer;
+            border: 2px solid var(--scout-green);
+        }
+
+        .btn-primary {
+            background-color: var(--scout-green);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--white);
+            color: var(--scout-green);
+        }
+
+        .btn-outline {
+            background-color: var(--dark-bg);
+            color: var(--scout-green);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--scout-green);
+            color: var(--white);
+        }
+
+        .stats {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--scout-green);
+            border-top: 1px solid var(--scout-green);
+            padding-top: 20px;
+            width: 100%;
+        }
+
+        /* Generic Section Padding */
+        section {
+            padding: 80px 40px;
+        }
+
+        /* Shop Section */
+        .shop-header {
+            text-align: right;
+            margin-bottom: 50px;
+        }
+
+        .shop-header h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .shop-header p {
+            font-size: 1.1rem;
+            color: var(--white);
+            max-width: 50%;
+            margin-left: auto;
+        }
+
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .shop-card {
+            background-color: var(--dark-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--scout-green);
+            transition: transform 0.3s;
+        }
+
+        .shop-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .shop-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--scout-green);
+        }
+
+        .shop-card-content {
+            padding: 20px;
+        }
+
+        .shop-card h3 {
+            color: var(--scout-green);
+            margin-bottom: 10px;
+        }
+
+        .shop-card p {
+            font-size: 0.9rem;
+            color: var(--white);
+            margin: 0;
+        }
+
+        .shop-extra {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 40px;
+            padding: 20px;
+            background-color: var(--dark-bg);
+            border: 2px solid var(--scout-green);
+            border-radius: 8px;
+        }
+
+        /* About Section */
+        .about-section {
+            background-color: var(--dark-bg);
+            border-top: 2px solid var(--scout-green);
+            border-bottom: 2px solid var(--scout-green);
+        }
+
+        .about-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .about-header h2 {
+            font-size: 2.5rem;
+            color: var(--scout-green);
+        }
+
+        .about-header p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: var(--white);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .team-card {
+            background-color: var(--dark-bg);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid var(--scout-green);
+        }
+
+        .team-initial {
+            width: 60px;
+            height: 60px;
+            background-color: var(--scout-green);
+            color: var(--white);
+            font-size: 2rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+        }
+
+        .team-card h3 {
+            color: var(--white);
+            margin-bottom: 5px;
+        }
+        
+        .team-card h4 {
+            color: var(--scout-green);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        /* Why Us Section */
+        .why-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .why-header h2 {
+            font-size: 2.5rem;
+        }
+        .why-header h3 {
+            color: var(--scout-green);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-box {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: var(--dark-bg);
+            border-radius: 10px;
+            border: 1px solid var(--scout-green);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--white);
+            background-color: var(--scout-green);
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+        }
+
+        /* Visit Section */
+        .visit-section {
+            background-color: var(--dark-bg);
+        }
+
+        .visit-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .visit-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .visit-info h2 {
+            font-size: 2.5rem;
+            color: var(--scout-green);
+        }
+
+        .contact-details {
+            margin-top: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .contact-item i {
+            color: var(--scout-green);
+            font-size: 1.5rem;
+            margin-top: 3px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .visit-map {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            min-height: 300px;
+            background-color: var(--dark-bg);
+            border: 2px solid var(--scout-green);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-bg);
+            padding: 60px 40px 20px;
+            text-align: center;
+            border-top: 2px solid var(--scout-green);
+        }
+
+        .footer-cta {
+            margin-bottom: 40px;
+        }
+
+        .footer-cta h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .footer-cta p {
+            color: var(--white);
+            margin-bottom: 25px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--scout-green);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            color: var(--white);
+            font-size: 0.9rem;
+        }
+
+        .footer-logo {
+            font-weight: 800;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-logo img {
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+            }
+            .shop-header {
+                text-align: left;
+            }
+            .shop-header p {
+                max-width: 100%;
+                margin-left: 0;
+            }
+            nav {
+                display: none; /* Can be replaced with a hamburger menu */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo-area">
+            <div class="logo-title">
+                <img src="Feather.png" alt="Feather Logo">
+                FEATHER FLICK BADMINTON STORE
+            </div>
+            <div class="location-text">Electronic City Phase II · Bengaluru</div>
+        </div>
+        
+        <nav>
+            <a href="#shop" data-hover="Go to Shop">SHOP</a>
+            <a href="#why-us" data-hover="Discover Why Us">WHY US</a>
+            <a href="#about" data-hover="Read About Us">ABOUT</a>
+            <a href="#visit" data-hover="Visit Store">VISIT</a>
+            <a href="#contact" data-hover="Contact Us">CONTACT</a>
+        </nav>
+
+        <div class="header-icons">
+            <a href="https://maps.google.com/?q=FeatherFlick+Badminton+Store+Bengaluru" target="_blank" class="icon-btn" title="Get Directions">
+                <i class="fa-solid fa-map-location-dot"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-left">
+            <img src="baddy image.png" alt="Badminton Player holding racket">
+        </div>
+        <div class="hero-right">
+            <h1><span class="highlight-text">Your Game.</span><br>Our Court.</h1>
+            <p>Bengaluru's go-to badminton store for players who care about their gear. Premium rackets, shoes, apparel and accessories — all under one roof.</p>
+            <div class="btn-group">
+                <a href="#shop" class="btn btn-primary">Explore the Shop</a>
+                <a href="#visit" class="btn btn-outline">Visit Our Store</a>
+            </div>
+            <div class="stats">
+                7+ Top Brands
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop Section -->
+    <section id="shop">
+        <div class="shop-header">
+            <h2>EVERYTHING FOR THE COURT</h2>
+            <p>Browse our in-store collection. Come try, feel, and compare — we'll help you pick what suits your game.</p>
+        </div>
+
+        <div class="shop-grid">
+            <!-- Rackets -->
+            <div class="shop-card">
+                <img src="aluminium-badminton-racquet.jpg" alt="Badminton Rackets">
+                <div class="shop-card-content">
+                    <h3>Rackets</h3>
+                    <p>Yonex, Li-Ning, Victor, Apacs, Hundred — pro to beginner</p>
+                </div>
+            </div>
+
+            <!-- Court Shoes -->
+            <div class="shop-card">
+                <img src="shoes pictures.jpeg" alt="Badminton Shoes">
+                <div class="shop-card-content">
+                    <h3>Court Shoes</h3>
+                    <p>Non-marking soles, all sizes in stock</p>
+                </div>
+            </div>
+
+            <!-- Apparel -->
+            <div class="shop-card">
+                <img src="Tshirts.jpeg" alt="Badminton Apparel">
+                <div class="shop-card-content">
+                    <h3>Apparel</h3>
+                    <p>Tracksuits, Jerseys, shorts & training wear with badminton t shirts, shorts, and tracksuits</p>
+                </div>
+            </div>
+
+            <!-- Accessories -->
+            <div class="shop-card">
+                <img src="badminton_accessories.webp" alt="Badminton Accessories">
+                <div class="shop-card-content">
+                    <h3>Accessories</h3>
+                    <p>Shuttles, grips, bags, strings & more</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="shop-extra">
+            Plus Badminton Nets, Posts, and Other Sports Goods. <span class="highlight-text">Ask in-store.</span>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="about-header">
+            <h2>About us</h2>
+            <h3>Founded by Players, for Players</h3>
+            <p>Feather Flick was started by three brothers who live and breathe badminton. Khasim and Noor have competed at national-level tournaments, and together with Abdul's guidance and mentorship, they built a store that serves Bengaluru's badminton community the way they always wished one would.</p>
+        </div>
+
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-initial">A</div>
+                <h3>Abdul S</h3>
+                <h4>FOUNDER & MENTOR</h4>
+                <p>The guiding force behind Feather Flick — bringing experience, vision, and steady leadership to the team.</p>
+            </div>
+            
+            <div class="team-card">
+                <div class="team-initial">K</div>
+                <h3>Khasim M</h3>
+                <h4>Co-founder & National Player</h4>
+                <p>National tournament player passionate about helping fellow players find gear that truly elevates their game.</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-initial">N</div>
+                <h3>Noor M</h3>
+                <h4>Co-founder & National Player</h4>
+                <p>A national-level competitor whose love for the game shapes every product we stock and every piece of advice we give.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us Section -->
+    <section id="why-us">
+        <div class="why-header">
+            <h2>WHY FEATHER FLICK</h2>
+            <h3>BUILT FOR SERIOUS PLAYERS</h3>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-box">
+                <div class="feature-icon"><i class="fa-solid fa-certificate"></i></div>
+                <h3>AUTHENTIC GEAR</h3>
+                <p>100% genuine products from trusted brands.</p>
+            </div>
+
+            <div class="feature-box">
+                <div class="feature-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                <h3>STRINGING SERVICE</h3>
+                <p>Professional racket stringing on-site.</p>
+            </div>
+
+            <div class="feature-box">
+                <div class="feature-icon"><i class="fa-solid fa-users"></i></div>
+                <h3>EXPERT ADVICE</h3>
+                <p>Players helping players pick the right gear.</p>
+            </div>
+
+            <div class="feature-box">
+                <div class="feature-icon"><i class="fa-solid fa-tags"></i></div>
+                <h3>CLUB DISCOUNTS</h3>
+                <p>Bulk pricing for clubs, schools & academies.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visit / Contact Section -->
+    <section id="visit" class="visit-section">
+        <div class="visit-container">
+            <div class="visit-info">
+                <h2>COME PLAY WITH US</h2>
+                <p>We're a physical store — no online ordering. Drop by to try gear, get expert advice, and meet fellow National players from the Bengaluru badminton community.</p>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div>
+                            <strong>Address</strong><br>
+                            FeatherFlick Badminton Store, Naidu Layout Main Rd, Naidu Layout, Shanthipura, Phase II, Electronic City, Bhovi Palya, Bengaluru, Karnataka 560100, India
+                        </div>
+                    </div>
+
+                    <div class="contact-item" id="contact">
+                        <i class="fa-solid fa-phone"></i>
+                        <div>
+                            <strong>Call</strong><br>
+                            +91 89519 72564<br>
+                            +91 80-4757 4146
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <div>
+                            <strong>Email</strong><br>
+                            info@featherflick.in
+                        </div>
+                    </div>
+                </div>
+
+                <div class="social-icons">
+                    <a href="https://wa.me/918951972564" class="icon-btn" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://instagram.com/featherflickbadmintonstore" class="icon-btn" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://youtube.com/@FeatherFlickBadmintonStore" class="icon-btn" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div class="visit-map">
+                <!-- Embedded Google Map -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3889.7041443725514!2d77.6687989!3d12.8624177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae6d00160a2fc7%3A0x6b77242c2625a6eb!2sFeather%20Flick%20Badminton%20Store!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" width="100%" height="100%" style="border:0; min-height: 350px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-cta">
+            <h2>Ready to upgrade your game?</h2>
+            <p>Walk in any day of the week. Bring your current racket — we'll help you find your next one.</p>
+            <div class="btn-group" style="justify-content: center;">
+                <a href="tel:+918951972564" class="btn btn-primary">Call the Store</a>
+                <a href="mailto:info@featherflick.in" class="btn btn-outline">Email Us</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-logo">
+                <img src="Feather.png" alt="Feather Logo">
+                FEATHER FLICK BADMINTON STORE
+            </div>
+            <div>&copy; 2026 Feather Flick Badminton Store &middot; Electronic City Phase II, Bengaluru</div>
+        </div>
+    </footer>
+
+</body>
+</html>
